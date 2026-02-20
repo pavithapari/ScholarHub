@@ -6,6 +6,7 @@
         body{
                 background-color: rgb(218, 232, 237);
                 font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin-top:100px;
             }
             .logo{
                 margin-left: 30px;
@@ -57,8 +58,31 @@
                 transform: translateY(-4px);
                 transition: transform 0.3s ease;
             }
-
-    </style>
+                .profile-card {
+                    display: flex;
+                    flex-direction: column;
+                    padding: 10px;
+                    background-color: aliceblue;
+    }
+    .title {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+    .form-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .edit-form {
+      display: none; 
+    }
+  </style>
 </head>
 <body>
     <nav>
@@ -76,6 +100,80 @@
 
             </div>
         </nav>
+         <!-- View Mode -->
+  <div class="profile-card" id="displayform">
+    <div class="title">
+      Profile information
+      <button id="edit">Edit Your profile</button>
+    </div>
+    <form class="form-layout">
+      <div class="field">
+        <label>FullName</label>
+        <input name="name" type="text" value="Scarlett Johansen" disabled>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" name="email" value="nat@shield.com" disabled>
+      </div>
+      <div class="field">
+        <label>Phone</label>
+        <input type="tel" name="phone" value="+91 805068065" disabled>
+      </div>
+      <div class="field">
+        <label>Date of Birth</label>
+        <input type="text" name="dob" value="November 15,2002" disabled>
+      </div>
+      <div class="field">
+        <label>Department</label>
+        <input type="text" name="dept" value="Computer Science" disabled>
+      </div>
+      <div class="field">
+        <label>StudentID</label>
+        <input type="text" name="stid" value="STU2346365002" disabled>
+      </div>
+    </form>
+  </div>
+
+  <!-- Edit Mode -->
+  <div class="edit-form" id="editform">
+    <div class="profile-card">
+      <div class="title">
+        Profile information
+        <div style="align-items: left;">
+        <button id="save">Save the changes</button>
+        <button id="cancel">Cancel</button>
+        </div>
+      </div>
+      <form class="form-layout">
+        <div class="field">
+          <label>FullName</label>
+          <input type="text" value="Scarlett Johansen" name="name">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input name="email" type="email" value="nat@shield.com">
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input name="phone" type="tel" value="+91 805068065">
+        </div>
+        <div class="field">
+          <label>Date of Birth</label>
+          <input name="dob" type="date" value="10-15-2002">
+        </div> 
+        
+        <div class="field">
+          <label>Department</label>
+          <input name="dept" type="text" value="Computer Science">
+        </div>
+        <div class="field">
+          <label>StudentID</label>
+          <input name="stid" type="text" value="STU2346365002">
+        </div>
+      </form>
+    </div>
+  </div>
+
     <script>
         let name=document.getElementById("name");
         name.style.display='none';
@@ -86,6 +184,33 @@
                 name.style.display = 'block';
             }
         });
+    let editForm = document.getElementById("editform");
+    let displayForm = document.getElementById("displayform");
+    let editBtn = document.getElementById("edit");
+    let cancelBtn = document.getElementById("cancel");
+    let saveBtn=document.getElementById("save")
+
+    editBtn.addEventListener('click', function() {
+      displayForm.style.display = "none";
+      editForm.style.display = "block";
+    });
+
+    saveBtn.addEventListener('click', function() {
+    let elementsD = displayForm.querySelectorAll("input");
+    let elementsE = editForm.querySelectorAll("input");
+    
+    for (let i = 0; i < elementsD.length; i++) {
+        elementsD[i].value = elementsE[i].value;
+    }
+
+    editForm.style.display = "none";
+      displayForm.style.display = "block";
+    });
+
+    cancelBtn.addEventListener('click',function(){
+        displayForm.style.display="block";
+        editForm.style.display="none";
+    })
     </script>
 </body>
 </html>
